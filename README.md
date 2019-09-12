@@ -1,1 +1,1 @@
-# wayseven-matchorganizer
+# MatchOrganizer
