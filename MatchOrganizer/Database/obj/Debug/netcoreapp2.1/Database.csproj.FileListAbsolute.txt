@@ -8,3 +8,6 @@ C:\Users\PC\Desktop\Svastara\VSProjects\Git\MatchOrganizer\MatchOrganizer\Databa
 C:\Users\PC\Desktop\Svastara\VSProjects\Git\MatchOrganizer\MatchOrganizer\Database\bin\Debug\netcoreapp2.1\Database.pdb
 C:\Users\PC\Desktop\Svastara\VSProjects\Git\MatchOrganizer\MatchOrganizer\Database\obj\Debug\netcoreapp2.1\Database.dll
 C:\Users\PC\Desktop\Svastara\VSProjects\Git\MatchOrganizer\MatchOrganizer\Database\obj\Debug\netcoreapp2.1\Database.pdb
+C:\Users\PC\Desktop\Svastara\VSProjects\Git\MatchOrganizer\MatchOrganizer\Database\obj\Debug\netcoreapp2.1\Database.Configuration.Properties.resources
+C:\Users\PC\Desktop\Svastara\VSProjects\Git\MatchOrganizer\MatchOrganizer\Database\obj\Debug\netcoreapp2.1\Database.csproj.GenerateResource.cache
+C:\Users\PC\Desktop\Svastara\VSProjects\Git\MatchOrganizer\MatchOrganizer\Database\obj\Debug\netcoreapp2.1\Database.csprojAssemblyReference.cache
