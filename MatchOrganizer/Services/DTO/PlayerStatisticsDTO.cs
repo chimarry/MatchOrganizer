@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Database.Entities
+namespace Services.DTO
 {
-    public class PlayerStatistics
+    public class PlayerStatisticsDTO
     {
         public int PlayerStatisticsId { get; set; }
         public int NoMatches { get; set; }
@@ -14,9 +14,5 @@ namespace Database.Entities
         public int PlayerId { get; set; }
         public int TeamId { get; set; }
 
-        #region NavigationProperties
-        public Player Player { get; set; }
-        public Team Team { get; set; } 
-        #endregion
     }
 }

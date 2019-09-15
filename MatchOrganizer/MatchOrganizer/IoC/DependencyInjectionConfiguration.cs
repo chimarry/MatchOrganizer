@@ -2,10 +2,10 @@
 using Autofac.Extensions.DependencyInjection;
 using Database;
 using Microsoft.Extensions.DependencyInjection;
+using Services.Helpers;
+using Services.Interfaces;
+using Services.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MatchOrganizer.IoC
 {
@@ -15,7 +15,16 @@ namespace MatchOrganizer.IoC
         {
             var builder = new ContainerBuilder();
             builder.Populate(services);
-            builder.RegisterType<MatchOrganizerContext>();     
+            builder.RegisterType<MatchOrganizerContext>();
+
+            builder.RegisterType<StatusService>().As<IStatusService>().InstancePerLifetimeScope();
+            builder.RegisterType<MatchService>().As<IMatchService>().InstancePerLifetimeScope();
+            builder.RegisterType<TeamService>().As<ITeamService>().InstancePerLifetimeScope();
+            builder.RegisterType<PlayerService>().As<IPlayerService>().InstancePerLifetimeScope();
+            builder.RegisterType<PlayerStatisticService>().As<IPlayerStatisticsService>().InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(ServiceExecutor<,>)).As(typeof(IServiceExecutor<,>)).InstancePerLifetimeScope();
+
+
             var conteiner = builder.Build();
             return conteiner.Resolve<IServiceProvider>();
         }
