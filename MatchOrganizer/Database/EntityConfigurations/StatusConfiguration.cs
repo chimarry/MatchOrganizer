@@ -12,6 +12,7 @@ namespace Database.EntityConfigurations
         public void Configure(EntityTypeBuilder<Status> builder)
         {
             builder.Property(x => x.Name).IsRequired();
+            builder.Property(x => x.NotActive).IsRequired().HasDefaultValue(false);
         }
     }
 }

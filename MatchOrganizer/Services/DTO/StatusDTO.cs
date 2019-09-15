@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Database.Entities
+namespace Services.DTO
 {
-    public class Status
+    public class StatusDTO
     {
         public int StatusId { get; set; }
         public string Name { get; set; }
-
         public bool NotActive { get; set; }
-        #region NavigationProperties
-        public ICollection<Match> Matches { get; set; } 
-        #endregion
+
     }
 }

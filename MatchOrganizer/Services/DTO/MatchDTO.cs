@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Database.Entities
+namespace Services.DTO
 {
-    public class Match
+    public class MatchDTO
     {
         public int MatchId { get; set; }
         public string Place { get; set; }
@@ -16,11 +16,5 @@ namespace Database.Entities
         public int GuestTeamId { get; set; }
         public int StatusId { get; set; }
 
-        #region NavigationProperties
-
-        public Team HostTeam { get; set; }
-        public Team GuestTeam { get; set; }
-        public Status Status { get; set; } 
-        #endregion
     }
 }
