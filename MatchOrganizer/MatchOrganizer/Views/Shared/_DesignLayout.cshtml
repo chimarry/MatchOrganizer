@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MatchOrganizer</title>
+
+    <link href="~/css/bootstrap.css" rel="stylesheet">
+    <link href="~/Vendor/Fontawesome/css/all.css" rel="stylesheet">
+</head>
+<body>
+
+    @*<partial name="_CookieConsentPartial" />*@
+
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <!-- Brand -->
+            <div class="mx-auto order-0">
+                <a class="mx-auto" href="#">
+                    <img src="~/img/logo.png" class="rounded-circle">
+                </a>
+                <a class="navbar-brand" href="#">Match organizer</a>
+            </div>
+        </nav>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <hr />
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

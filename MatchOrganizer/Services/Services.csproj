@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Automapper\" />
+    <Folder Include="Logger\" />
   </ItemGroup>
 
   <ItemGroup>

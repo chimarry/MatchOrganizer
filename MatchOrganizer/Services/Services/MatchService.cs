@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Status = Services.ErrorHandling.Status;
 
 namespace Services.Services
 {
@@ -14,7 +15,6 @@ namespace Services.Services
     public class MatchService : IMatchService
     {
 
-       
         private readonly IServiceExecutor<MatchDTO, Match> _serviceExecutor;
 
         public MatchService(IServiceExecutor<MatchDTO, Match> serviceExecutor)
@@ -22,36 +22,36 @@ namespace Services.Services
             _serviceExecutor = serviceExecutor;
         }
 
-        public Task Add(MatchDTO dto)
+        public async Task<Status> Add(MatchDTO dto)
         {
-            return _serviceExecutor.TryAdding(dto, x => x.HostTeamId != dto.HostTeamId && x.GuestTeamId != dto.GuestTeamId && x.StartTime != dto.StartTime);
+            return await _serviceExecutor.Add(dto, x => x.HostTeamId != dto.HostTeamId && x.GuestTeamId != dto.GuestTeamId && x.StartTime != dto.StartTime);
         }
 
-        public async Task Delete(int id)
+        public async Task<Status> Delete(int id)
         {
             Match dbMatch = await _serviceExecutor.GetSingleOrDefault(x => x.MatchId == id && x.NotActive == false);
             dbMatch.NotActive = true;
-            await _serviceExecutor.TryDeleting(dbMatch);
+            return await _serviceExecutor.Delete(dbMatch);
         }
 
-        public Task<IList<MatchDTO>> GetAll()
+        public Task<List<MatchDTO>> GetAll()
         {
-            return _serviceExecutor.TryGettingAll(x => x.NotActive == false);
+            return _serviceExecutor.GetAll(x => x.NotActive == false);
         }
 
-        public Task<MatchDTO> GetById(int id)
+        public async Task<MatchDTO> GetById(int id)
         {
-            return _serviceExecutor.TryGettingOne(x => x.MatchId == id && x.NotActive == false);
+            return await _serviceExecutor.GetOne(x => x.MatchId == id && x.NotActive == false);
         }
 
-        public Task<IList<MatchDTO>> GetRange(int startPosition, int numberOfItems)
+        public async Task<List<MatchDTO>> GetRange(int startPosition, int numberOfItems)
         {
             throw new NotImplementedException();
         }
 
-        public Task Update(MatchDTO dto)
+        public async Task<Status> Update(MatchDTO dto)
         {
-            return _serviceExecutor.TryUpdating(dto, x => x.MatchId == dto.MatchId && x.NotActive == false);
+            return await _serviceExecutor.Update(dto, x => x.MatchId == dto.MatchId && x.NotActive == false);
         }
     }
 }

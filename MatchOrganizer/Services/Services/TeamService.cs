@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Status = Services.ErrorHandling.Status;
 
 namespace Services.Services
 {
@@ -18,36 +19,36 @@ namespace Services.Services
             _serviceExecutor = serviceExecutor;
         }
 
-        public Task Add(TeamDTO dto)
+        public async Task<Status> Add(TeamDTO dto)
         {
-            return _serviceExecutor.TryAdding(dto, x => x.Name != dto.Name && x.NotActive == false);
+            return await _serviceExecutor.Add(dto, x => x.Name != dto.Name && x.NotActive == false);
         }
 
-        public async Task Delete(int id)
+        public async Task<Status> Delete(int id)
         {
             Team dbTeam = await _serviceExecutor.GetSingleOrDefault(x => x.TeamId == id && x.NotActive == false);
             dbTeam.NotActive = true;
-            await _serviceExecutor.TryDeleting(dbTeam);
+            return await _serviceExecutor.Delete(dbTeam);
         }
 
-        public Task<IList<TeamDTO>> GetAll()
+        public Task<List<TeamDTO>> GetAll()
         {
-            return _serviceExecutor.TryGettingAll(x => x.NotActive == false);
+            return _serviceExecutor.GetAll(x => x.NotActive == false);
         }
 
         public async Task<TeamDTO> GetById(int id)
         {
-            return await _serviceExecutor.TryGettingOne(x => x.TeamId == id && x.NotActive == false);
+            return await _serviceExecutor.GetOne(x => x.TeamId == id && x.NotActive == false);
         }
 
-        public Task<IList<TeamDTO>> GetRange(int startPosition, int numberOfItems)
+        public Task<List<TeamDTO>> GetRange(int startPosition, int numberOfItems)
         {
             throw new NotImplementedException();
         }
 
-        public Task Update(TeamDTO dto)
+        public async Task<Status> Update(TeamDTO dto)
         {
-            return _serviceExecutor.TryUpdating(dto, x => x.TeamId == dto.TeamId && x.NotActive == false);
+            return await _serviceExecutor.Update(dto, x => x.TeamId == dto.TeamId && x.NotActive == false);
         }
     }
 }

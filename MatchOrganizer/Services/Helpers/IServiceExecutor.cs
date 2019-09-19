@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services.ErrorHandling;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,11 +8,17 @@ namespace Services.Helpers
 {
     public interface IServiceExecutor<TDto, TEntity> where TEntity : class
     {
-        Task TryAdding(TDto dto, Predicate<TEntity> condition);
-        Task TryDeleting(TEntity entity);
-        Task TryUpdating(TDto dto, Predicate<TEntity> condition);
-        Task<TDto> TryGettingOne(Predicate<TEntity> condition);
-        Task<IList<TDto>> TryGettingAll(Predicate<TEntity> condition);
+
+        Task<Status> Add(TDto dto, Predicate<TEntity> condition);
+
+        Task<Status> Delete(TEntity entity);
+
+        Task<Status> Update(TDto dto, Predicate<TEntity> condition);
+
+        Task<TDto> GetOne(Predicate<TEntity> condition);
+
+        Task<List<TDto>> GetAll(Predicate<TEntity> condition);
+
         Task<TEntity> GetSingleOrDefault(Predicate<TEntity> condition);
     }
 }

@@ -1,0 +1,38 @@
+﻿@model  MatchOrganizer.ViewModels.TeamDetailsViewModel;
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_DesignLayout.cshtml";
+}
+
+@Html.Partial("_GoToPreviousPagePartial")
+
+<div class="container" style="display:flex; margin-top:100px; width:40%; justify-content:center">
+    <div class="container" style="justify-content:space-between">
+        <img src="~/img/avatar.png" style="border-radius:20%"/>
+        <h1>@Model.Name</h1>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm" id="table-polaznici" style="margin-top:10px">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(m => m.Name)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var player in Model.Players)
+                {
+                    <tr>
+
+                        <td>@player.FullName</td>
+ 
+                        <td class="text-nowrap text-right">
+                            <a class="btn btn-outline-info btn-sm" href="@Url.Action("Remove", new { @id = player.TeamId })"><i class="fas fa-info-circle"></i> Remove</a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

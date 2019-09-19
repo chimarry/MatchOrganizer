@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Services.Services
 {
     public class StatusService : IStatusService
@@ -21,36 +22,36 @@ namespace Services.Services
 
         }
 
-        public Task Add(StatusDTO dto)
+        public async Task<ErrorHandling.Status> Add(StatusDTO dto)
         {
-            return _serviceExecutor.TryAdding(dto, x => x.Name != dto.Name && x.NotActive == false);
+            return await _serviceExecutor.Add(dto, x => x.Name != dto.Name && x.NotActive == false);
         }
 
-        public async Task Delete(int id)
+        public async Task<ErrorHandling.Status> Delete(int id)
         {
-            Status dbStatus = await _serviceExecutor.GetSingleOrDefault(x => x.StatusId == id && x.NotActive == false);
-            await _serviceExecutor.TryDeleting(dbStatus);
+            Database.Entities.Status dbStatus = await _serviceExecutor.GetSingleOrDefault(x => x.StatusId == id && x.NotActive == false);
+            return await _serviceExecutor.Delete(dbStatus);
         }
 
-        public async Task<IList<StatusDTO>> GetAll()
+        public async Task<List<StatusDTO>> GetAll()
         {
-            return await _serviceExecutor.TryGettingAll(x => x.NotActive == false);
+            return await _serviceExecutor.GetAll(x => x.NotActive == false);
         }
 
 
-        public Task<IList<StatusDTO>> GetRange(int startPosition, int numberOfItems)
+        public Task<List<StatusDTO>> GetRange(int startPosition, int numberOfItems)
         {
             throw new NotImplementedException();
         }
 
-        public Task Update(StatusDTO dto)
+        public async Task<ErrorHandling.Status> Update(StatusDTO dto)
         {
-            return _serviceExecutor.TryUpdating(dto, x => x.StatusId == dto.StatusId && x.NotActive == false);
+            return await _serviceExecutor.Update(dto, x => x.StatusId == dto.StatusId && x.NotActive == false);
         }
 
         public async Task<StatusDTO> GetById(int id)
         {
-            return await _serviceExecutor.TryGettingOne(x => x.StatusId == id && x.NotActive == false);
+            return await _serviceExecutor.GetOne(x => x.StatusId == id && x.NotActive == false);
         }
     }
 }

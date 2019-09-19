@@ -1,0 +1,39 @@
+.first {
+    width: 100%;
+    background-color: black;
+    background-image: url(../img/flower.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+}
+
+.second {
+    width: 100%;
+}
+
+.button {
+    border: solid 2px rgb(139, 81, 146);
+    background-color: white;
+    font-weight: bold;
+    color:  rgba(139, 81, 146,0.8);
+    border-radius: 15px 0px;
+    transition: all 0.5s ease;
+
+}
+.button:hover{
+    transform: scale(1.1);
+    transition: all 0.5s ease;
+    background-color: rgba(139, 81, 146,0.2); 
+}
+.button:focus{
+    outline: none;
+}
+h2{
+    color:  rgba(140, 81, 146, 0.829);
+}
+

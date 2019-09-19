@@ -2,6 +2,7 @@
 using Autofac.Extensions.DependencyInjection;
 using Database;
 using Microsoft.Extensions.DependencyInjection;
+using Services.ErrorHandling;
 using Services.Helpers;
 using Services.Interfaces;
 using Services.Services;
@@ -15,7 +16,7 @@ namespace MatchOrganizer.IoC
         {
             var builder = new ContainerBuilder();
             builder.Populate(services);
-            builder.RegisterType<MatchOrganizerContext>();
+            builder.RegisterType<MatchOrganizerContext>().InstancePerLifetimeScope();
 
             builder.RegisterType<StatusService>().As<IStatusService>().InstancePerLifetimeScope();
             builder.RegisterType<MatchService>().As<IMatchService>().InstancePerLifetimeScope();
@@ -23,6 +24,7 @@ namespace MatchOrganizer.IoC
             builder.RegisterType<PlayerService>().As<IPlayerService>().InstancePerLifetimeScope();
             builder.RegisterType<PlayerStatisticService>().As<IPlayerStatisticsService>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(ServiceExecutor<,>)).As(typeof(IServiceExecutor<,>)).InstancePerLifetimeScope();
+            builder.RegisterType<ErrorHandler>().As<IErrorHandler>().InstancePerLifetimeScope();
 
 
             var conteiner = builder.Build();
