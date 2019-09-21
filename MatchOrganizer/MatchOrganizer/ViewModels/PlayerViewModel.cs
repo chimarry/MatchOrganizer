@@ -11,7 +11,7 @@ namespace MatchOrganizer.ViewModels
         public int PlayerId { get; set; }
         [Display(Name = "Full name")]
         [Required(ErrorMessage = "Field full name is required.")]
-        public int FullName { get; set; }
+        public string FullName { get; set; }
         public int TeamId { get; set; }
         public bool NotActive { get; set; }
     }

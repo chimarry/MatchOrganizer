@@ -25,7 +25,7 @@ namespace Services.Services
 
         public async Task<Status> Add(PlayerDTO dto)
         {
-            return await _serviceExecutor.Add(dto, x => x.FullName != dto.FullName && x.NotActive == false);
+            return await _serviceExecutor.Add(dto, x => x.FullName == dto.FullName && x.NotActive == false);
         }
 
         public async Task<Status> Delete(int id)

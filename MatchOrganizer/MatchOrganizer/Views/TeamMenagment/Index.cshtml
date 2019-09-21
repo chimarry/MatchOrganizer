@@ -5,10 +5,14 @@
     ViewBag.Title = "Teams";
 }
 
+
+@Html.Partial("_MessagePartial")
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
-            <a class="btn btn-primary mb-3" data-toggle="modal" data-target="#create" style="margin-top:100px;margin-left:10px"><i class="fas fa-plus"></i> Create new match</a>
+            <a class="btn btn-primary mb-3" onclick="Create()" style="margin-top:100px;margin-left:10px"><i class="fas fa-plus"></i> Create new team</a>
+
         </div>
     </div>
     <div class="table-responsive">
@@ -37,21 +41,19 @@
         </table>
     </div>
 </div>
-<div class="modal fade" id="create">
+<div class="modal fade" id="modal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Marija Novakovic</h4>
+
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
-            <div class="modal-body">
-                I'm 21 years old.
-
-      
+            <div class="modal-body" id="createModal">
+            </div>
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -59,5 +61,12 @@
         </div>
     </div>
 </div>
-
+<script>
+    var Create = function () {
+        var url = "/TeamMenagment/Create";
+        $("#createModal").load(url, function () {
+            $("#modal").modal("show");
+        })
+    }
+</script>
 

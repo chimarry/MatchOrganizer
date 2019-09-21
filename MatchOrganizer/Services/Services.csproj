@@ -5,8 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Logger\**" />
+    <EmbeddedResource Remove="Logger\**" />
+    <None Remove="Logger\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Automapper\" />
-    <Folder Include="Logger\" />
   </ItemGroup>
 
   <ItemGroup>

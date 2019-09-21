@@ -1,0 +1,28 @@
+﻿@model MatchOrganizer.ViewModels.PlayerViewModel
+
+<div>
+    <p>You are about to delete player from team. Are you sure?</p>
+    <form id="deletePlayerForm">
+        @Html.HiddenFor(m => m.TeamId)
+        @Html.HiddenFor(m => m.PlayerId)
+        <a class="btn btn-success btn-sm" id="btnSave" href="#" onclick="Save()">Proceed</a>
+    </form>
+
+</div>
+
+<script>
+    var Save = function () {
+
+        var myData = $("#deletePlayerForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: "/Player/Delete",
+            data: myData,
+            success: function () {
+                $("#modal").modal("hide");
+                window.location.href = "/TeamMenagment/Details/"+ @Model.TeamId;
+            }
+        })
+    }
+
+</script>

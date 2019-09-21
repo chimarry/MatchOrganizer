@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MatchOrganizer.Automapper;
+﻿using MatchOrganizer.Automapper;
 using MatchOrganizer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Services.DTO;
+using Services.ErrorHandling;
 using Services.Interfaces;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MatchOrganizer.Controllers
 {
@@ -32,6 +31,7 @@ namespace MatchOrganizer.Controllers
             return await Task.Run(() => View(teamsToRender));
 
         }
+
         public async Task<IActionResult> Details(int? id)
         {
             TeamDTO team = await _teamService.GetById(id.Value);
@@ -41,6 +41,24 @@ namespace MatchOrganizer.Controllers
             detailsToShow.Players = Mapping.Mapper.Map<List<PlayerDTO>, List<PlayerViewModel>>(players);
             return View(detailsToShow);
         }
-   
+
+
+        public IActionResult Create()
+        {
+            TeamViewModel modelToFill = new TeamViewModel();
+            return PartialView("_CreateTeamPartial", modelToFill);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(TeamViewModel team)
+        {
+            TeamDTO teamToAdd = Mapping.Mapper.Map<TeamDTO>(team);
+            Status addingStatus = await _teamService.Add(teamToAdd);
+            return RedirectToAction("Index");
+        }
+
+
+
+
     }
 }

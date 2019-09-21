@@ -1,0 +1,27 @@
+﻿@model MatchOrganizer.ViewModels.TeamViewModel
+
+<div>
+    <form id="createTeamForm">
+        @Html.DisplayNameFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, htmlAttributes: new { id = "name" })
+        <a class="btn btn-success btn-sm" id="btnSave" href="#" onclick="Save()">Save</a>
+    </form>
+
+</div>
+
+<script>
+    var Save = function () {
+
+        var myData = $("#createTeamForm").serialize();
+        $.ajax({
+            type: "POST",
+            url: "/TeamMenagment/Save",
+            data: myData,
+            success: function () {
+                $("#modal").modal("hide");
+                window.location.href = "/TeamMenagment/Index";
+            }
+        })
+    }
+
+</script>

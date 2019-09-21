@@ -68,7 +68,7 @@ namespace Services.Helpers
             catch (Exception ex)
             {
                 _errorHandler.Handle(ex);
-                return default(TDto);
+                return default;
             }
         }
 
@@ -96,7 +96,7 @@ namespace Services.Helpers
         public async Task<Status> TryAdd(TDto dto, Predicate<TEntity> condition)
         {
             TEntity dbEntity = await GetSingleOrDefault(condition);
-            if (dbEntity == null)
+            if (dbEntity != null)
             {
                 return Status.AlreadyExists;
             }

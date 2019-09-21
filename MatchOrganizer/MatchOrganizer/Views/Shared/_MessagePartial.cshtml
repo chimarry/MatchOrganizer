@@ -1,0 +1,8 @@
+﻿@if (ViewBag.Message != null)
+{
+    <div class="alert @ViewBag.Message.CssClass alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @ViewBag.Message.InfoMessage
+    </div>
+}
+

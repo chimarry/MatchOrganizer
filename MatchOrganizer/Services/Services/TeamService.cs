@@ -21,7 +21,7 @@ namespace Services.Services
 
         public async Task<Status> Add(TeamDTO dto)
         {
-            return await _serviceExecutor.Add(dto, x => x.Name != dto.Name && x.NotActive == false);
+            return await _serviceExecutor.Add(dto, x => x.Name == dto.Name && x.NotActive == false);
         }
 
         public async Task<Status> Delete(int id)
