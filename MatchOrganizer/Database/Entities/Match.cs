@@ -14,13 +14,14 @@ namespace Database.Entities
         public bool NotActive { get; set; }
         public int HostTeamId { get; set; }
         public int GuestTeamId { get; set; }
-        public int StatusId { get; set; }
+        public int Status { get; set; }
 
         #region NavigationProperties
 
         public Team HostTeam { get; set; }
         public Team GuestTeam { get; set; }
-        public Status Status { get; set; } 
+
+        public ICollection<MatchTeamPlayer> MatchTeamPlayers { get; set; }
         #endregion
     }
 }

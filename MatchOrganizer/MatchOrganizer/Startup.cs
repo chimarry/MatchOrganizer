@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using MatchOrganizer.ViewModels.Matches;
 
 namespace MatchOrganizer
 {
@@ -33,8 +36,8 @@ namespace MatchOrganizer
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Database"));
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddControllersAsServices();
-
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddControllersAsServices().AddFluentValidation();
+            services.AddTransient<IValidator<CreateMatchViewModel>, CreateMatchValidator>();
             return DependencyInjectionConfiguration.Configure(services);
         }
 
@@ -54,7 +57,7 @@ namespace MatchOrganizer
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

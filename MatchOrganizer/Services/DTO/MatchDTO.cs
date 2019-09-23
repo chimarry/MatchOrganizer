@@ -14,7 +14,7 @@ namespace Services.DTO
         public bool NotActive { get; set; }
         public int HostTeamId { get; set; }
         public int GuestTeamId { get; set; }
-        public int StatusId { get; set; }
+        public int Status { get; set; }
 
     }
 }

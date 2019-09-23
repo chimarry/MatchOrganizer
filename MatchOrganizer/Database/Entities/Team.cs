@@ -19,7 +19,7 @@ namespace Database.Entities
         public ICollection<Player> Players { get; set; }
         public ICollection<Match> HostMatches { get; set; }
         public ICollection<Match> GuestMatches { get; set; }
-        public ICollection<PlayerStatistics> PlayerStatistics { get; set; } 
+        public ICollection<MatchTeamPlayer> MatchTeamPlayers { get; set; }
         #endregion
 
     }

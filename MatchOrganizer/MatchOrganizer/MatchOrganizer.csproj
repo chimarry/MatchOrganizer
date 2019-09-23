@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
@@ -28,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="Helpers\" />
+    <Folder Include="ViewModels\Player\" />
   </ItemGroup>
 
 </Project>

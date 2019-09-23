@@ -20,5 +20,6 @@ namespace Services.Helpers
         Task<List<TDto>> GetAll(Predicate<TEntity> condition);
 
         Task<TEntity> GetSingleOrDefault(Predicate<TEntity> condition);
+        Task<List<TDto>> GetRange(int offset, int noItems, Predicate<TEntity> condition);
     }
 }

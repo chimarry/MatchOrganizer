@@ -10,6 +10,13 @@
     <script src="~/js/jquery-3.3.1.min.js"></script>
     <script src="~/js/popper.min.js"></script>
     <script src="~/js/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+
+
 
 </head>
 <body>
@@ -31,7 +38,7 @@
                 <a class="nav-link" href="@Url.Action("Index", "TeamMenagment", null)">Team menagment</a>
             </li>
             <li class="nav-item" id="#matches">
-                <a class="nav-link" href="#">Matches</a>
+                <a class="nav-link" href="@Url.Action("Index","Matches",null)">Matches</a>
             </li>
             <li class="nav-item" id="#statistic">
                 <a class="nav-link" href="#">Statistic</a>

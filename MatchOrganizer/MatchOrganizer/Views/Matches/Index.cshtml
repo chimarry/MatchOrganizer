@@ -1,0 +1,74 @@
+﻿@model IEnumerable<MatchOrganizer.ViewModels.Matches.IndexMatchViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <a class="btn btn-primary mb-3" href="@Url.Action("Create")" style="margin-top:100px;margin-left:10px"><i class="fas fa-plus"></i> Create new match</a>
+
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm" id="table-matches" style="margin-top:10px">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Host</th>
+                    <th>Guest</th>
+                    <th>Time</th>
+                    <th>Place</th>
+                    <th>Result</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var match in Model)
+                {
+                    <tr>
+                        <td><div class="dot dot-running"></div></td>
+                        <td>@match.HostTeamName</td>
+                        <td>@match.GuestTeamName</td>
+                        <td>@match.StartTime</td>
+                        <td>@match.Place</td>
+                        <td>@match.Score</td>
+                        <td>
+                            <a class="btn btn-outline-info btn-sm" href="@Url.Action("Details")"><i class="fas fa-info-circle"></i> Details</a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="createModal">
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var Create = function () {
+        var url = "/Matches/Create";
+        $("#createModal").load(url, function () {
+            $("#modal").modal("show");
+        })
+    }
+</script>
+

@@ -55,7 +55,7 @@ using MatchOrganizer.Models;
             WriteLiteral("\r\n<div>\r\n    <p>You are about to delete player from team. Are you sure?</p>\r\n    ");
             EndContext();
             BeginContext(131, 217, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "eb8fb9581afd4a489cfd733df41e08e3", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0d6e68458e614444a4555f304eebeb58", async() => {
                 BeginContext(159, 10, true);
                 WriteLiteral("\r\n        ");
                 EndContext();

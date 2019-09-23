@@ -53,9 +53,10 @@ namespace Services.Services
             return await _serviceExecutor.GetOne(x => x.PlayerId == id && x.NotActive == false);
         }
 
-        public Task<List<PlayerDTO>> GetRange(int startPosition, int numberOfItems)
+        public async Task<List<PlayerDTO>> GetRange(int startPosition, int numberOfItems)
         {
-            throw new NotImplementedException();
+            return await _serviceExecutor.GetRange(startPosition, numberOfItems, x => x.NotActive == false);
+
         }
 
         public async Task<Status> Update(PlayerDTO dto)

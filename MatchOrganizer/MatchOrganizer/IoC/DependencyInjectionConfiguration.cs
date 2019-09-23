@@ -18,14 +18,12 @@ namespace MatchOrganizer.IoC
             builder.Populate(services);
             builder.RegisterType<MatchOrganizerContext>().InstancePerLifetimeScope();
 
-            builder.RegisterType<StatusService>().As<IStatusService>().InstancePerLifetimeScope();
             builder.RegisterType<MatchService>().As<IMatchService>().InstancePerLifetimeScope();
             builder.RegisterType<TeamService>().As<ITeamService>().InstancePerLifetimeScope();
             builder.RegisterType<PlayerService>().As<IPlayerService>().InstancePerLifetimeScope();
-            builder.RegisterType<PlayerStatisticService>().As<IPlayerStatisticsService>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(ServiceExecutor<,>)).As(typeof(IServiceExecutor<,>)).InstancePerLifetimeScope();
             builder.RegisterType<ErrorHandler>().As<IErrorHandler>().InstancePerLifetimeScope();
-
+            builder.RegisterType<MatchTeamPlayerService>().As<IMatchTeamPlayerService>().InstancePerLifetimeScope();
 
             var conteiner = builder.Build();
             return conteiner.Resolve<IServiceProvider>();

@@ -13,7 +13,7 @@ namespace Database.Entities
         public Team CurrentTeam { get; set; }
 
         #region NavigationProperties
-        public ICollection<PlayerStatistics> PlayerStatistics { get; set; }
+        public ICollection<MatchTeamPlayer> MatchTeamPlayers { get; set; }
         #endregion
     }
 }

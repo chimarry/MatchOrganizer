@@ -1,5 +1,6 @@
 ﻿using MatchOrganizer.Automapper;
 using MatchOrganizer.ViewModels;
+using MatchOrganizer.ViewModels.TeamMenagment;
 using Microsoft.AspNetCore.Mvc;
 using Services.DTO;
 using Services.ErrorHandling;
@@ -25,7 +26,7 @@ namespace MatchOrganizer.Controllers
         {
 
             List<TeamDTO> teams = await _teamService.GetAll();
-            List<TeamViewModel> teamsToRender = Mapping.Mapper.Map<List<TeamDTO>, List<TeamViewModel>>(teams);
+            List<IndexTeamViewModel> teamsToRender = Mapping.Mapper.Map<List<TeamDTO>, List<IndexTeamViewModel>>(teams);
             teamsToRender.ForEach(async team => team.NoPlayers = await _playerService.GetNoPlayersInTeam(team.TeamId));
 
             return await Task.Run(() => View(teamsToRender));
@@ -37,7 +38,7 @@ namespace MatchOrganizer.Controllers
             TeamDTO team = await _teamService.GetById(id.Value);
             List<PlayerDTO> players = await _playerService.GetAllInTeam(id.Value);
 
-            TeamDetailsViewModel detailsToShow = Mapping.Mapper.Map<TeamDetailsViewModel>(team);
+            DetailsTeamViewModel detailsToShow = Mapping.Mapper.Map<DetailsTeamViewModel>(team);
             detailsToShow.Players = Mapping.Mapper.Map<List<PlayerDTO>, List<PlayerViewModel>>(players);
             return View(detailsToShow);
         }
@@ -45,19 +46,17 @@ namespace MatchOrganizer.Controllers
 
         public IActionResult Create()
         {
-            TeamViewModel modelToFill = new TeamViewModel();
+            CreateTeamViewModel modelToFill = new CreateTeamViewModel();
             return PartialView("_CreateTeamPartial", modelToFill);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(TeamViewModel team)
+        public async Task<IActionResult> Save(CreateTeamViewModel team)
         {
             TeamDTO teamToAdd = Mapping.Mapper.Map<TeamDTO>(team);
             Status addingStatus = await _teamService.Add(teamToAdd);
             return RedirectToAction("Index");
         }
-
-
 
 
     }

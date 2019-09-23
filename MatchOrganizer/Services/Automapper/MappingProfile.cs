@@ -23,18 +23,18 @@ namespace Services.AutoMapper
         private void MapToDTO()
         {
             CreateMap<Player, PlayerDTO>();
-            CreateMap<PlayerStatistics, PlayerStatisticsDTO>();
+
             CreateMap<Team, TeamDTO>();
             CreateMap<Match, MatchDTO>();
-            CreateMap<Status, StatusDTO>();
+            CreateMap<MatchTeamPlayer, MatchTeamPlayerDTO>();
+         
         }
         private void MapToEntity()
         {
             CreateMap<PlayerDTO, Player>();
-            CreateMap<PlayerStatisticsDTO, PlayerStatistics>();
             CreateMap<MatchDTO, Match>();
             CreateMap<TeamDTO, Team>();
-            CreateMap<StatusDTO, Status>();
+            CreateMap<MatchTeamPlayerDTO, MatchTeamPlayer>();
         }
     }
 }

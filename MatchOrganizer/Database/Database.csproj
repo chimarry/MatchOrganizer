@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20190912164545_MatchAndStatusAdding.cs" />
+    <Compile Remove="Migrations\20190922074038_CreateMatchView.cs" />
+    <Compile Remove="Migrations\20190922074038_CreateMatchView.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

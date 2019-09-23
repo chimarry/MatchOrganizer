@@ -42,7 +42,9 @@ namespace Database.Migrations
 
                     b.Property<DateTime>("StartTime");
 
-                    b.Property<int>("StatusId");
+                    b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(1);
 
                     b.HasKey("MatchId");
 
@@ -50,9 +52,26 @@ namespace Database.Migrations
 
                     b.HasIndex("HostTeamId");
 
-                    b.HasIndex("StatusId");
-
                     b.ToTable("Matches");
+                });
+
+            modelBuilder.Entity("Database.Entities.MatchTeamPlayer", b =>
+                {
+                    b.Property<int>("MatchId");
+
+                    b.Property<int>("TeamId");
+
+                    b.Property<int>("PlayerId");
+
+                    b.Property<int>("Score");
+
+                    b.HasKey("MatchId", "TeamId", "PlayerId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("MatchTeamPlayers");
                 });
 
             modelBuilder.Entity("Database.Entities.Player", b =>
@@ -75,51 +94,6 @@ namespace Database.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Players");
-                });
-
-            modelBuilder.Entity("Database.Entities.PlayerStatistics", b =>
-                {
-                    b.Property<int>("PlayerStatisticsId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("NoGoals");
-
-                    b.Property<int>("NoMatches");
-
-                    b.Property<bool>("NotActive")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
-
-                    b.Property<int>("PlayerId");
-
-                    b.Property<int>("TeamId");
-
-                    b.HasKey("PlayerStatisticsId");
-
-                    b.HasIndex("PlayerId");
-
-                    b.HasIndex("TeamId");
-
-                    b.ToTable("PlayerStatistics");
-                });
-
-            modelBuilder.Entity("Database.Entities.Status", b =>
-                {
-                    b.Property<int>("StatusId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<bool>("NotActive")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
-
-                    b.HasKey("StatusId");
-
-                    b.ToTable("Statuses");
                 });
 
             modelBuilder.Entity("Database.Entities.Team", b =>
@@ -166,10 +140,23 @@ namespace Database.Migrations
                         .WithMany("HostMatches")
                         .HasForeignKey("HostTeamId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
 
-                    b.HasOne("Database.Entities.Status", "Status")
-                        .WithMany("Matches")
-                        .HasForeignKey("StatusId")
+            modelBuilder.Entity("Database.Entities.MatchTeamPlayer", b =>
+                {
+                    b.HasOne("Database.Entities.Match", "Match")
+                        .WithMany("MatchTeamPlayers")
+                        .HasForeignKey("MatchId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Database.Entities.Player", "Player")
+                        .WithMany("MatchTeamPlayers")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Database.Entities.Team", "Team")
+                        .WithMany("MatchTeamPlayers")
+                        .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -177,19 +164,6 @@ namespace Database.Migrations
                 {
                     b.HasOne("Database.Entities.Team", "CurrentTeam")
                         .WithMany("Players")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Database.Entities.PlayerStatistics", b =>
-                {
-                    b.HasOne("Database.Entities.Player", "Player")
-                        .WithMany("PlayerStatistics")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Database.Entities.Team", "Team")
-                        .WithMany("PlayerStatistics")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

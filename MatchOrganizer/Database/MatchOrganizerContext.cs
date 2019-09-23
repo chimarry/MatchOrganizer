@@ -9,8 +9,8 @@ namespace Database
         public DbSet<Player> Players { get; set; }
         public DbSet<Match> Matches { get; set; }
         public DbSet<Team> Teams { get; set; }
-        public DbSet<PlayerStatistics> PlayerStatistics { get; set; }
-        public DbSet<Status> Statuses { get; set; }
+        public DbSet<MatchTeamPlayer> MatchTeamPlayers { get; set; }
+
         public MatchOrganizerContext(DbContextOptions<MatchOrganizerContext> dbContextOptions) : base(dbContextOptions)
         {
         }
@@ -21,8 +21,7 @@ namespace Database
             modelBuilder.ApplyConfiguration<Player>(new PlayerConfiguration());
             modelBuilder.ApplyConfiguration<Team>(new TeamConfiguration());
             modelBuilder.ApplyConfiguration<Match>(new MatchConfiguration());
-            modelBuilder.ApplyConfiguration<PlayerStatistics>(new PlayerStatisticsConfiguration());
-            modelBuilder.ApplyConfiguration<Status>(new StatusConfiguration());
+            modelBuilder.ApplyConfiguration<MatchTeamPlayer>(new MatchTeamPlayerConfiguration());
         }
     }
 }

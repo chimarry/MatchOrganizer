@@ -1,0 +1,133 @@
+﻿@model MatchOrganizer.ViewModels.Matches.CreateMatchViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_DesignLayout.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+
+<form id="createMatchForm">
+
+    <div class="container" style="display:flex; flex-direction:row; margin-top:20px">
+
+        <div class="container" id="hostTeamContainer" style="display:flex;flex-direction:column; justify-content:space-around">
+            <p>Host team</p>
+            @Html.HiddenFor(x => x.HostTeamId, new { id = "HostTeamId", name = "HostTeamId" })
+
+            <span asp-validation-for="HostTeamId" class="text-danger"></span>
+            <select asp-items="@ViewBag.HostTeams" id="hostTeamList">
+                <option>--Teams--</option>
+            </select>
+            <p style="margin-top:100px">Host players</p>
+
+            <select id="hostPlayerList" multiple name="HostPlayerList"></select>
+
+        </div>
+
+        <div class="container" id="matchDetailsContainer" style="display:flex;flex-direction:column;justify-content:space-between">
+            <div>
+                <p>Place</p>
+                @Html.TextBoxFor(m => m.Place, new { name = "Place" })
+                <div class="form-group">
+                    <label class="control-label">Start Time</label>
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' class="form-control" name="StartTime" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                @Html.HiddenFor(m => m.StartTime, new { id = "StartTimeId", name = "StartTime" })
+            </div>
+            <button class="btn btn-success mt-3" id="btnSave" style="width:30%" onclick="Save()"><i class="far fa-save"></i>Save</button>
+
+
+        </div>
+
+        <div class="container" id="guestTeamContainer" style="display:flex; flex-direction:column">
+            <span asp-validation-for="GuestTeamId" class="text-danger"></span>
+
+            <p>Guest team</p>
+            @Html.HiddenFor(x => x.GuestTeamId, new { id = "GuestTeamId", name = "GuestTeamId" })
+
+
+
+            <select asp-items="@ViewBag.GuestTeams" id="GuestTeams">
+                <option>--Teams--</option>
+            </select>
+            <p style="margin-top:100px">Guest players</p>
+            <select id="guestPlayerList" multiple name="GuestPlayerList"></select>
+
+
+
+        </div>
+    </div>
+
+</form>
+
+
+<script type="text/javascript">
+
+    ////Insert default item "Select" in dropdownlist on load
+    $(document).ready(function () {
+        var items = "<option value='0'>Select</option>";
+        $("#hostPlayerList").html(items);
+    });
+
+    //Bind City dropdownlist
+    $("#hostTeamList").change(function () {
+        var teamId = $("#hostTeamList").val();
+        var url = "/Matches/GetPlayerList";
+        $("#HostTeamId").val(teamId);
+        $.getJSON(url, { TeamId: teamId }, function (data) {
+            var item = "";
+            $("#hostPlayerList").empty();
+            $.each(data, function (i, player) {
+                item += '<option value="' + player.value + '">' + player.text + '</option>'
+            });
+            $("#hostPlayerList").html(item);
+        });
+    });
+    $("#GuestTeams").change(function () {
+        var teamId = $("#GuestTeams").val();
+        var url = "/Matches/GetPlayerList";
+        $("#GuestTeamId").val(teamId);
+
+        $.getJSON(url, { TeamId: teamId }, function (data) {
+            var item = "";
+            $("#guestPlayerList").empty();
+            $.each(data, function (i, player) {
+                item += '<option value="' + player.value + '">' + player.text + '</option>'
+            });
+            $("#guestPlayerList").html(item);
+        });
+    });
+    $(function () {
+
+        $('#datetimepicker1').datetimepicker();
+
+    });
+
+
+    var Save = function () {
+
+        var myData = $("#createMatchForm").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: "/Matches/Save",
+            data: myData,
+            success: function () {
+                window.location.href = "/Matches/Index";
+                window.location.replace("/Matches/Index");
+            }
+
+        })
+    }
+
+</script>

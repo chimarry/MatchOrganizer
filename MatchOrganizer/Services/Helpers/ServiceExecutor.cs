@@ -58,6 +58,20 @@ namespace Services.Helpers
                 return new List<TDto>();
             }
         }
+        public async Task<List<TDto>> GetRange(int offset, int noItems, Predicate<TEntity> condition)
+        {
+            try
+            {
+                return await TryGetRange(offset, noItems, condition);
+            }
+            catch (Exception ex)
+            {
+                _errorHandler.Handle(ex);
+                return new List<TDto>();
+            }
+
+        }
+
 
         public async Task<TDto> GetOne(Predicate<TEntity> condition)
         {
@@ -93,7 +107,7 @@ namespace Services.Helpers
 
         #region methodExecution
 
-        public async Task<Status> TryAdd(TDto dto, Predicate<TEntity> condition)
+        private async Task<Status> TryAdd(TDto dto, Predicate<TEntity> condition)
         {
             TEntity dbEntity = await GetSingleOrDefault(condition);
             if (dbEntity != null)
@@ -105,27 +119,33 @@ namespace Services.Helpers
             return Status.Success;
         }
 
-        public async Task<Status> TryDelete(TEntity entity)
+        private async Task<Status> TryDelete(TEntity entity)
         {
             await _context.SaveChangesAsync();
             return Status.Success;
         }
 
-        public async Task<List<TDto>> TryGetAll(Predicate<TEntity> condition)
+        private async Task<List<TDto>> TryGetAll(Predicate<TEntity> condition)
         {
 
             return await _context.Set<TEntity>().Where(x => condition(x)).Select(x => Mapping.Mapper.Map<TDto>(x)).ToListAsync();
 
         }
+        private async Task<List<TDto>> TryGetRange(int offset, int noItems, Predicate<TEntity> condition)
+        {
+            return await _context.Set<TEntity>().Where(x => condition(x)).Skip(offset).Take(noItems).Select(x => Mapping.Mapper.Map<TDto>(x)).ToListAsync();
 
-        public async Task<TDto> TryGetOne(Predicate<TEntity> condition)
+        }
+
+
+        private async Task<TDto> TryGetOne(Predicate<TEntity> condition)
         {
 
             TEntity entity = await GetSingleOrDefault(condition);
             return Mapping.Mapper.Map<TDto>(entity);
         }
 
-        public async Task<Status> TryUpdate(TDto dto, Predicate<TEntity> condition)
+        private async Task<Status> TryUpdate(TDto dto, Predicate<TEntity> condition)
         {
 
             TEntity dbEntity = await GetSingleOrDefault(condition);
@@ -137,6 +157,8 @@ namespace Services.Helpers
             await _context.SaveChangesAsync();
             return Status.Success;
         }
+
+
 
 
         #endregion

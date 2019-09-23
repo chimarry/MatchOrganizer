@@ -16,7 +16,7 @@ namespace Database.EntityConfigurations
             builder.Property(x => x.NotActive).HasDefaultValue(false);
             builder.Property(x => x.HostTeamId).IsRequired();
             builder.Property(x => x.GuestTeamId).IsRequired();
-            builder.Property(x => x.StatusId).IsRequired();
+            builder.Property(x => x.Status).HasDefaultValue(1).IsRequired();
         }
     }
 }

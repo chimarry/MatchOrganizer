@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using MatchOrganizer.ViewModels;
+using MatchOrganizer.ViewModels.Matches;
+using MatchOrganizer.ViewModels.TeamMenagment;
 using Services.DTO;
 
 namespace MatchOrganizer.Automapper
@@ -22,15 +24,31 @@ namespace MatchOrganizer.Automapper
         }
         private void MapToViewModel()
         {
-            CreateMap<TeamDTO, TeamViewModel>();
-            CreateMap<TeamDTO, TeamDetailsViewModel>();
+            CreateMap<TeamDTO, CreateTeamViewModel>();
+            CreateMap<TeamDTO, IndexTeamViewModel>();
+            CreateMap<TeamDTO, DetailsTeamViewModel>();
+
+
             CreateMap<PlayerDTO, PlayerViewModel>();
+            CreateMap<MatchDTO, MatchViewModel>();
+            CreateMap<MatchDTO, IndexMatchViewModel>();
+            CreateMap<TeamDTO, TeamListItemViewModel>();
+
         }
         private void MapToDTO()
         {
-            CreateMap<TeamDetailsViewModel, TeamDTO>();
-            CreateMap<TeamViewModel, TeamDTO>();
+
+            CreateMap<CreateTeamViewModel, TeamDTO>();
+            CreateMap<DetailsTeamViewModel, TeamDTO>();
+            CreateMap<IndexTeamViewModel, TeamDTO>();
+            CreateMap<MatchDTO, CreateMatchViewModel>();
+
             CreateMap<PlayerViewModel, PlayerDTO>();
+            CreateMap<MatchViewModel, MatchDTO>();
+            CreateMap<CreateMatchViewModel, MatchDTO>();
+            CreateMap<IndexMatchViewModel, MatchDTO>();
+            CreateMap<TeamListItemViewModel, TeamDTO>();
+
         }
     }
 }
