@@ -4,6 +4,7 @@
     <form id="createTeamForm">
         @Html.DisplayNameFor(m => m.Name)
         @Html.TextBoxFor(m => m.Name, htmlAttributes: new { id = "name" })
+
         <a class="btn btn-success btn-sm" id="btnSave" href="#" onclick="Save()">Save</a>
     </form>
 
