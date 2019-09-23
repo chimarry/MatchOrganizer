@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<MatchOrganizer.ViewModels.Matches.IndexMatchViewModel>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,7 +7,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
-            <a class="btn btn-primary mb-3" href="@Url.Action("Create")" style="margin-top:100px;margin-left:10px"><i class="fas fa-plus"></i> Create new match</a>
+            <a class="btn btn-primary mb-3" href="@Url.Action(" Create")" style="margin-top:100px;margin-left:10px"><i class="fas fa-plus"></i> Create new match</a>
 
         </div>
     </div>
@@ -27,14 +28,35 @@
                 @foreach (var match in Model)
                 {
                     <tr>
-                        <td><div class="dot dot-running"></div></td>
+                        <td>
+                            @{ if (match.Status == (int)MatchOrganizer.Helpers.MatchStatus.CANCELED)
+                                {
+                                    <div class="dot dot-canceled"></div>
+
+
+                                }
+                                else if (match.Status == (int)MatchOrganizer.Helpers.MatchStatus.FINISHED)
+                                {
+                                    <div class="dot dot-finished"></div>
+
+                                }
+                                else if (match.StartTime < DateTime.Now)
+                                {
+                                    <div class="dot dot-not-started"></div>
+
+                                }
+                                else
+                                {
+                                    <div class="dot dot-running"></div>}
+                            }
+                        </td>
                         <td>@match.HostTeamName</td>
                         <td>@match.GuestTeamName</td>
                         <td>@match.StartTime</td>
                         <td>@match.Place</td>
                         <td>@match.Score</td>
                         <td>
-                            <a class="btn btn-outline-info btn-sm" href="@Url.Action("Details")"><i class="fas fa-info-circle"></i> Details</a>
+                            <a class="btn btn-outline-info btn-sm" href="@Url.Action(" Details")"><i class="fas fa-info-circle"></i> Details</a>
                         </td>
 
                     </tr>
@@ -70,5 +92,14 @@
             $("#modal").modal("show");
         })
     }
+    //needs to be rewritten so that it checks if the match is running
+    $(function () {
+        var $div = $('#myDiv');
+
+        var timer = setInterval(function () {
+            $div.html(newContent); // which would reference some dynamic content
+        }, 5000);
+
+    });
 </script>
 
